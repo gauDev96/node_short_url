@@ -1,4 +1,5 @@
 # node_short_url
+
 This is a Node.js-based URL Shortener application designed with user-specific URL management and session-based authentication using browser cookies.
 
 The primary goal of this project is to allow registered users to shorten long URLs, manage their personal links, and view analytics (like version history or clicks) related only to the URLs they’ve created.
@@ -6,7 +7,7 @@ The primary goal of this project is to allow registered users to shorten long UR
 🔐 Authentication & Session Management
 The app uses browser cookies to identify and authenticate users. Upon successful login or session initiation, a cookie is stored in the user’s browser. This cookie is used to:
 
-Validate each request coming to the server
+Validate each request coming to the server side
 
 Identify the user making the request
 
