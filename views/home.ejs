@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            table {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            border-collapse: collapse;
+            width: 80%;
+            }
+
+            td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+            }
+
+            tr:nth-child(even) {
+            background-color: #dddddd;
+            }
+            .input-label{
+                width: 50%;
+                height: 40px;
+                border: 1px solid #ccc;
+                border-radius: 8px;
+                font-size: 15px;
+                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+                padding: 0px 10px;
+                margin-left: 10px;
+            }
+            .input-btn{
+                width: 100px;
+                height: 40px;
+                margin-left: 20px;
+            }
+            label,p{
+              font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;  
+            }
+        </style>
+    </head>
+    <body>
+        <form method="post" action="/api/URL">
+            <label><strong>Put your Original Url</strong></label>
+            <input type="text" name="url" class="input-label" placeholder="https://example.com/">
+            <input type="submit" class="input-btn">
+        </form>
+        <div>
+        <% if (url_data.length == 0) { %>
+            <h2>No URL Data found</h2>
+        <% } else { %>
+            <h3>URL Data</h3>
+            <table>
+                <tr>
+                    <th>Original Url</th>
+                    <th>Short id</th>
+                    <th>Total Clicks</th>
+                    <th>Redirect Url</th>
+                </tr>
+                <% url_data.forEach(urls => { %>
+                    <tr>
+                    <td><%= urls.originalURL %></td>
+                    <td><%= urls.shortID %></td>
+                    <td>
+                        <form action="/api/URL/analytics/<%= urls.shortID %>" method="get">
+                            <input type="submit" value="Click to see clicks" />
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/api/URL/<%= urls.shortID %>" method="get">
+                            <input type="submit" value="Go to Website" />
+                        </form>
+                    </td>
+                    </tr>
+                <% }) %>
+            </table>
+        <% } %>
+        </div>
+        <div>
+            <% if (click_count && short_id && short_id!=='') { %>
+             <p>Total clicks for <strong><%= short_id %></strong> this id is <strong><%= click_count %></strong></p>
+            <% } %>
+        </div>
+    </body>
+</html>
